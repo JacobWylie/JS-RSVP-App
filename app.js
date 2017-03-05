@@ -8,12 +8,37 @@ const ul = document.getElementById('invitedList');
 const div = document.createElement('div');
 const filterLabel = document.createElement('label');
 const filterCheckbox = document.createElement('input');
+
 // Appends taxt and checkbox to new div
 filterLabel.textContent = "Hide those who haven't responded";
 filterCheckbox.type = 'checkbox';
 div.appendChild(filterLabel);
 div.appendChild(filterCheckbox);
 mainDiv.insertBefore(div, ul);
+
+// Event handler for 'hide' checkbox
+filterCheckbox.addEventListener('change', (e) => {
+	const isChecked = e.target.checked;
+	const lis = ul.children;
+
+	// Hides uncomfirmed guests
+	if (isChecked) {
+		for (let i = 0; i < lis.length; i += 1) {
+			let li = lis[i]
+			if (li.className === 'responded') {
+				li.style.display = '';
+			} else {
+				li.style.display = 'none';
+			}
+		}
+	// Shows uncomfirmed guests 
+	} else {
+		for (let i = 0; i < lis.length; i += 1) {
+			let li = lis[i]
+			li.style.display = '';
+		}
+	}
+});
 
 // Creates new list item with input text
 function createLI(text) {
