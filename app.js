@@ -5,7 +5,9 @@ const ul = document.getElementById('invitedList');
 // Creates new list item with input text
 function createLI(text) {
 	const li = document.createElement('li');
-	li.textContent = text;
+	const span = document.createElement('span');
+	span.textContent = text;
+	li.appendChild(span);
 	// Adds checkbox to list item
 	const label = document.createElement('label');
 	label.textContent = 'confirmed';
@@ -47,15 +49,34 @@ ul.addEventListener('change', (e) => {
 	}
 });
 
-// Event Handler for "remove" button
+// Event Handler for edit and remove buttons
 ul.addEventListener('click', (e) => {
 	if (e.target.tagName === 'BUTTON') {
-		if (e.target.textContent === 'remove') {
-			const li = e.target.parentNode;
-			const ul = li.parentNode;
+		const button = e.target;
+		const li = button.parentNode;
+		const ul = li.parentNode;
+		// Deletes li when remove is clicked
+		if (button.textContent === 'remove') {
 			ul.removeChild(li);
-		} else if (e.target.textContent === 'edit') {
-			
+		// Modifies name into text input when edit is clicked
+		} else if (button.textContent === 'edit') {
+				const span = li.firstElementChild;
+				const input = document.createElement('input');
+				input.type = 'text';
+				input.value = span.textContent;
+				li.insertBefore(input, span);
+				li.removeChild(span);
+				// Changes button text to 'save' in edit mode
+				button.textContent = 'save';
+			// Modifies name when save button is clicked
+		} else if (button.textContent === 'save') {
+				const input = li.firstElementChild;
+				const span = document.createElement('span');
+				span.textContent = input.value;
+				li.insertBefore(span, input);
+				li.removeChild(input);
+				// Changes button text to 'edit'
+				button.textContent = 'edit';
 		}
 	}
 });
