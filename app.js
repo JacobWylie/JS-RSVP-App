@@ -50,9 +50,13 @@ ul.addEventListener('change', (e) => {
 // Event Handler for "remove" button
 ul.addEventListener('click', (e) => {
 	if (e.target.tagName === 'BUTTON') {
-		const li = e.target.parentNode;
-		const ul = li.parentNode;
-		ul.removeChild(li);
+		if (e.target.textContent === 'remove') {
+			const li = e.target.parentNode;
+			const ul = li.parentNode;
+			ul.removeChild(li);
+		} else if (e.target.textContent === 'edit') {
+			
+		}
 	}
 });
 
