@@ -8,15 +8,19 @@ function createLI(text) {
 	li.textContent = text;
 	// Adds checkbox to list item
 	const label = document.createElement('label');
-	label.textContent = 'Confirmed';
+	label.textContent = 'confirmed';
 	const checkbox = document.createElement('input');
 	checkbox.type = 'checkbox';
 	label.appendChild(checkbox);
 	li.appendChild(label);
+	// Adds edit button to list item
+	const editButton = document.createElement('button');
+	editButton.textContent = 'edit';
+	li.appendChild(editButton);
 	// Adds remove button to list item
-	const button = document.createElement('button');
-	button.textContent = 'remove';
-	li.appendChild(button);
+	const removeButton = document.createElement('button');
+	removeButton.textContent = 'remove';
+	li.appendChild(removeButton);
 	return li;
 };
 
