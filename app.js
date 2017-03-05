@@ -101,11 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			const button = e.target;
 			const li = button.parentNode;
 			const ul = li.parentNode;
-			// Deletes li when remove is clicked
-			if (button.textContent === 'remove') {
-				ul.removeChild(li);
-			// Modifies name into text input when edit is clicked
-			} else if (button.textContent === 'edit') {
+			const action = button.textContent;
+
+			const nameActions = {
+				// Deletes li when 'remove' is clicked
+				remove: () => {
+					ul.removeChild(li);
+				},
+				// Modifies name into text input when edit is clicked
+				edit: () => {
 					const span = li.firstElementChild;
 					const input = document.createElement('input');
 					input.type = 'text';
@@ -114,8 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
 					li.removeChild(span);
 					// Changes button text to 'save' in edit mode
 					button.textContent = 'save';
-				// Modifies name when save button is clicked
-			} else if (button.textContent === 'save') {
+				},
+				// Saves input and appends to li
+				save: () => {
 					const input = li.firstElementChild;
 					const span = document.createElement('span');
 					span.textContent = input.value;
@@ -123,7 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
 					li.removeChild(input);
 					// Changes button text to 'edit'
 					button.textContent = 'edit';
-			}
+				}
+			};
+
+			// Select and run action in button's name
+			nameActions[action]();
 		}
 	});
 
